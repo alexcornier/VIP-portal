@@ -156,6 +156,9 @@ public class FileUploadServiceImpl extends HttpServlet {
                                 String dir = uploadedFile.getParent();
                                 uploadedFile.delete();
                                 operationID = processDir(user, dir, path, usePool);
+                                if (operationID.endsWith("##")) {
+                                    operationID = operationID.substring(0, operationID.length() - 2);
+                                }
                             }
 
                         } else {
@@ -210,12 +213,7 @@ public class FileUploadServiceImpl extends HttpServlet {
             }
         }
 
-        String idsStr = ids.toString();
-        if (idsStr.endsWith("##")) {
-            idsStr = idsStr.substring(0, idsStr.length() - 2);
-        }
-
-        return idsStr;
+        return ids.toString();
     }
 
     private String uploadFile(User user, String fileName, String dir, boolean usePool)
